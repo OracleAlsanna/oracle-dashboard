@@ -1,0 +1,104 @@
+.qr-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.qr-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.qr-btn:hover {
+  color: var(--accent);
+}
+
+.link-row--deleting {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.code-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-family: var(--font);
+}
+
+.code-link:hover {
+  text-decoration: underline;
+}
+
+.url-cell {
+  color: var(--muted);
+  font-family: var(--font);
+  cursor: default;
+}
+
+.date-cell {
+  color: var(--muted);
+  white-space: nowrap;
+  font-family: var(--font);
+}
+
+.delete-x {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  transition: color 0.15s;
+  font-family: var(--font);
+  line-height: 1;
+}
+
+.delete-x:hover {
+  color: #e06c75;
+}
+
+.confirm-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.confirm-q {
+  color: var(--muted);
+}
+
+.confirm-yes,
+.confirm-no {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: var(--font);
+  cursor: pointer;
+  padding: 2px 7px;
+  color: var(--muted);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.confirm-yes:hover:not(:disabled) {
+  color: #e06c75;
+  border-color: #e06c75;
+}
+
+.confirm-no:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.confirm-yes:disabled,
+.confirm-no:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
