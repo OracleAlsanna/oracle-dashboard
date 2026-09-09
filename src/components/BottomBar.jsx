@@ -46,8 +46,8 @@ function IconChart() {
   );
 }
 
-function AboutPanel({ onClose, style }) {
-  const [section, setSection] = useState('what');
+function AboutPanel({ onClose, style, initialSection }) {
+  const [section, setSection] = useState(initialSection || 'what');
 
   const navItems = [
     { id: 'what', label: "what's oracle?" },
@@ -103,10 +103,24 @@ function AboutPanel({ onClose, style }) {
             </p>
           )}
           {section === 'terms' && (
-            <p>
-              by using oracle you agree to use it responsibly. oracle is
-              provided as-is with no warranties.
-            </p>
+            <>
+              <p>
+                by using oracle you agree to use it responsibly. do not use
+                oracle to shorten links to illegal content, malware, phishing
+                pages, or anything intended to harm or deceive others.
+              </p>
+              <p>
+                links pointing to local or private network addresses are
+                rejected automatically. links may be password-protected or set
+                to expire by their creator. oracle reserves the right to
+                remove any link at its own discretion.
+              </p>
+              <p>
+                oracle is provided as-is with no warranties of any kind,
+                express or implied, including but not limited to uptime,
+                accuracy, or fitness for a particular purpose.
+              </p>
+            </>
           )}
         </div>
       </div>
@@ -134,6 +148,29 @@ function DonatePanel({ onClose, style }) {
   );
 }
 
+const CHANGELOG = [
+  {
+    version: 'v1.4.0',
+    desc: 'link ownership: only the browser that created a link can delete it, via a one-time secret token.',
+  },
+  {
+    version: 'v1.3.0',
+    desc: 'custom short codes, link expiration, and password-protected links. qr codes now generate locally instead of calling a third-party api.',
+  },
+  {
+    version: 'v1.2.0',
+    desc: 'live analytics: a chart of top links by clicks and a recent-clicks feed, pulled from the backend.',
+  },
+  {
+    version: 'v1.1.0',
+    desc: 'security hardening across the api: open redirect protection, security headers, rate limiting, and redis caching.',
+  },
+  {
+    version: 'v1.0.0',
+    desc: 'initial release. url shortening with 4-character alphanumeric codes.',
+  },
+];
+
 function UpdatesPanel({ onClose, style }) {
   return (
     <div className="popout-panel" style={style}>
@@ -141,14 +178,14 @@ function UpdatesPanel({ onClose, style }) {
         <span className="popout-title">updates</span>
         <button className="popout-close" onClick={onClose}>×</button>
       </div>
-      <div className="popout-body">
-        <p className="update-entry">
-          <span className="update-version">v1.0.0</span>
-          <span className="update-sep"> — </span>
-          <span className="update-desc">
-            initial release. url shortening with 4-character alphanumeric codes.
-          </span>
-        </p>
+      <div className="popout-body popout-body--updates">
+        {CHANGELOG.map((entry) => (
+          <p key={entry.version} className="update-entry">
+            <span className="update-version">{entry.version}</span>
+            <span className="update-sep"> — </span>
+            <span className="update-desc">{entry.desc}</span>
+          </p>
+        ))}
       </div>
     </div>
   );
@@ -171,6 +208,7 @@ function computeLeft(btnRef, panelWidth) {
 export default function BottomBar({ onShortenClick }) {
   const [open, setOpen] = useState(null);
   const [panelLeft, setPanelLeft] = useState(0);
+  const [aboutSection, setAboutSection] = useState('what');
   const barRef = useRef(null);
   const donateRef = useRef(null);
   const updatesRef = useRef(null);
@@ -184,6 +222,12 @@ export default function BottomBar({ onShortenClick }) {
       setPanelLeft(computeLeft(ref, PANEL_WIDTHS[name]));
       setOpen(name);
     }
+  };
+
+  const openTerms = () => {
+    setAboutSection('terms');
+    setPanelLeft(computeLeft(aboutRef, PANEL_WIDTHS.about));
+    setOpen('about');
   };
 
   const close = () => setOpen(null);
@@ -205,7 +249,7 @@ export default function BottomBar({ onShortenClick }) {
     <div className="bottom-bar" ref={barRef}>
       {open === 'donate' && <DonatePanel onClose={close} style={panelStyle} />}
       {open === 'updates' && <UpdatesPanel onClose={close} style={panelStyle} />}
-      {open === 'about' && <AboutPanel onClose={close} style={panelStyle} />}
+      {open === 'about' && <AboutPanel onClose={close} style={panelStyle} initialSection={aboutSection} />}
       {open === 'analytics' && <AnalyticsPanel onClose={close} style={panelStyle} />}
 
       <div className="bar-left">
@@ -238,9 +282,9 @@ export default function BottomBar({ onShortenClick }) {
       <div className="bar-center">
         <p className="bar-terms">
           by using oracle, you agree to our{' '}
-          <a href="#" className="bar-terms-link">
+          <button type="button" className="bar-terms-link" onClick={openTerms}>
             terms of use
-          </a>
+          </button>
         </p>
       </div>
 
@@ -272,7 +316,10 @@ export default function BottomBar({ onShortenClick }) {
         <button
           ref={aboutRef}
           className={`bar-btn${open === 'about' ? ' active' : ''}`}
-          onClick={() => toggle('about', aboutRef)}
+          onClick={() => {
+            setAboutSection('what');
+            toggle('about', aboutRef);
+          }}
           title="about"
         >
           <span className="bar-btn-icon">

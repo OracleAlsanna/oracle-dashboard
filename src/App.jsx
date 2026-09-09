@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getLinks, createLink, deleteLink } from './api.js';
 import BottomBar from './components/BottomBar.jsx';
+import Brand from './components/Brand.jsx';
 import Starfield from './components/Starfield.jsx';
 import LinkForm from './components/LinkForm.jsx';
 import LinkTable from './components/LinkTable.jsx';
@@ -71,6 +72,7 @@ export default function App() {
       <Starfield />
       <main className="main-content">
         <div className="hero">
+          <Brand />
           <LinkForm onSubmit={handleCreate} inputRef={inputRef} />
           <LinkTable
             links={links}
