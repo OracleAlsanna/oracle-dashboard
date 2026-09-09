@@ -29,6 +29,15 @@ function IconQR() {
   );
 }
 
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="13" height="13" title="password protected">
+      <rect x="3" y="11" width="18" height="11" rx="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
 export default function LinkRow({ link, onDelete, onShowQR }) {
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -46,6 +55,16 @@ export default function LinkRow({ link, onDelete, onShowQR }) {
         <a href={shortUrl} target="_blank" rel="noreferrer" className="code-link">
           {link.name}
         </a>
+        {link.protected && (
+          <span className="row-badge row-badge--lock">
+            <IconLock />
+          </span>
+        )}
+        {link.expires_at && (
+          <span className="row-badge row-badge--expiry" title={`expires ${formatDate(link.expires_at)}`}>
+            exp
+          </span>
+        )}
       </td>
       <td>
         <button

@@ -20,6 +20,10 @@ function IconLink() {
 
 export default function LinkForm({ onSubmit, inputRef }) {
   const [url, setUrl] = useState('');
+  const [code, setCode] = useState('');
+  const [expiresIn, setExpiresIn] = useState('');
+  const [password, setPassword] = useState('');
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -27,9 +31,18 @@ export default function LinkForm({ onSubmit, inputRef }) {
     const trimmed = url.trim();
     if (!trimmed || submitting) return;
     setSubmitting(true);
-    const success = await onSubmit(trimmed);
+    const success = await onSubmit(trimmed, {
+      code: code.trim() || undefined,
+      expiresIn: expiresIn ? Number(expiresIn) : undefined,
+      password: password || undefined,
+    });
     setSubmitting(false);
-    if (success) setUrl('');
+    if (success) {
+      setUrl('');
+      setCode('');
+      setExpiresIn('');
+      setPassword('');
+    }
   };
 
   const handlePaste = async () => {
@@ -55,6 +68,44 @@ export default function LinkForm({ onSubmit, inputRef }) {
           spellCheck={false}
         />
       </div>
+
+      {showAdvanced && (
+        <div className="advanced-options">
+          <input
+            type="text"
+            className="advanced-input"
+            placeholder="custom code (optional)"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            disabled={submitting}
+            autoComplete="off"
+            spellCheck={false}
+            maxLength={20}
+          />
+          <div className="expiry-input-wrapper">
+            <input
+              type="number"
+              className="advanced-input advanced-input--narrow expiry-input"
+              placeholder="expires in"
+              value={expiresIn}
+              onChange={(e) => setExpiresIn(e.target.value)}
+              disabled={submitting}
+              min="1"
+            />
+            <span className="expiry-unit">hrs</span>
+          </div>
+          <input
+            type="password"
+            className="advanced-input"
+            placeholder="password (optional)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={submitting}
+            autoComplete="new-password"
+          />
+        </div>
+      )}
+
       <div className="form-actions">
         <div className="actions-left">
           <button
@@ -63,6 +114,13 @@ export default function LinkForm({ onSubmit, inputRef }) {
             disabled={submitting || !url.trim()}
           >
             {submitting ? 'shortening...' : 'shorten'}
+          </button>
+          <button
+            type="button"
+            className="pill-btn pill-btn--ghost"
+            onClick={() => setShowAdvanced((v) => !v)}
+          >
+            {showAdvanced ? 'hide options' : 'options'}
           </button>
         </div>
         <div className="actions-right">

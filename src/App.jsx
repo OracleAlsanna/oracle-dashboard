@@ -35,9 +35,9 @@ export default function App() {
   }, [fetchLinks]);
 
   const handleCreate = useCallback(
-    async (url) => {
+    async (url, options) => {
       try {
-        const newLink = await createLink(url);
+        const newLink = await createLink(url, options);
         setLinks((prev) => [newLink, ...prev]);
         showToast(`created: ${newLink.name}`, 'success');
         return true;

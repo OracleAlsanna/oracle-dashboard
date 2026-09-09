@@ -48,3 +48,11 @@
   color: var(--muted);
   font-family: var(--font);
 }
+
+.qr-hint {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: var(--font);
+  opacity: 0.6;
+  margin-top: -8px;
+}

@@ -102,3 +102,24 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+.row-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  color: var(--muted);
+  vertical-align: middle;
+}
+
+.row-badge--lock {
+  color: var(--accent);
+}
+
+.row-badge--expiry {
+  font-size: 9px;
+  font-family: var(--font);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 4px;
+  letter-spacing: 0.03em;
+}

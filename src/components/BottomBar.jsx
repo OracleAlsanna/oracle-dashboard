@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import AnalyticsPanel from './AnalyticsPanel.jsx';
 import './BottomBar.css';
 
 function IconGitHub() {
@@ -31,6 +32,16 @@ function IconInfo() {
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="16" x2="12" y2="12" />
       <line x1="12" y1="8" x2="12.01" y2="8" />
+    </svg>
+  );
+}
+
+function IconChart() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="14" />
     </svg>
   );
 }
@@ -143,7 +154,7 @@ function UpdatesPanel({ onClose, style }) {
   );
 }
 
-const PANEL_WIDTHS = { donate: 280, updates: 280, about: 400 };
+const PANEL_WIDTHS = { donate: 280, updates: 280, about: 400, analytics: 400 };
 const MARGIN = 16;
 
 function computeLeft(btnRef, panelWidth) {
@@ -164,6 +175,7 @@ export default function BottomBar({ onShortenClick }) {
   const donateRef = useRef(null);
   const updatesRef = useRef(null);
   const aboutRef = useRef(null);
+  const analyticsRef = useRef(null);
 
   const toggle = (name, ref) => {
     if (open === name) {
@@ -194,6 +206,7 @@ export default function BottomBar({ onShortenClick }) {
       {open === 'donate' && <DonatePanel onClose={close} style={panelStyle} />}
       {open === 'updates' && <UpdatesPanel onClose={close} style={panelStyle} />}
       {open === 'about' && <AboutPanel onClose={close} style={panelStyle} />}
+      {open === 'analytics' && <AnalyticsPanel onClose={close} style={panelStyle} />}
 
       <div className="bar-left">
         <a
@@ -208,6 +221,18 @@ export default function BottomBar({ onShortenClick }) {
           </span>
           <span className="bar-btn-label">contact</span>
         </a>
+
+        <button
+          ref={analyticsRef}
+          className={`bar-btn${open === 'analytics' ? ' active' : ''}`}
+          onClick={() => toggle('analytics', analyticsRef)}
+          title="analytics"
+        >
+          <span className="bar-btn-icon">
+            <IconChart />
+          </span>
+          <span className="bar-btn-label">analytics</span>
+        </button>
       </div>
 
       <div className="bar-center">

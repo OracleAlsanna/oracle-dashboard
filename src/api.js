@@ -8,11 +8,16 @@ export async function getLinks() {
   return res.json();
 }
 
-export async function createLink(url) {
+export async function createLink(url, options = {}) {
+  const body = { url };
+  if (options.code) body.code = options.code;
+  if (options.expiresIn) body.expires_in_hours = options.expiresIn;
+  if (options.password) body.password = options.password;
+
   const res = await fetch(`${BASE_URL}/links`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     let message = `Error ${res.status}`;
@@ -37,4 +42,20 @@ export async function deleteLink(name) {
     } catch (_) {}
     throw new Error(message);
   }
+}
+
+export async function getAnalyticsSummary() {
+  const res = await fetch(`${BASE_URL}/analytics`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch analytics: ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function getRecentClicks() {
+  const res = await fetch(`${BASE_URL}/analytics/recent`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch recent clicks: ${res.status}`);
+  }
+  return res.json();
 }

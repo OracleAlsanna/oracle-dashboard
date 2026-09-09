@@ -80,3 +80,80 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
+
+.pill-btn--ghost {
+  border-color: transparent;
+  color: var(--muted);
+}
+
+.pill-btn--ghost:hover:not(:disabled) {
+  border-color: var(--border);
+}
+
+.advanced-options {
+  display: flex;
+  gap: 10px;
+  padding: 0 4px;
+  flex-wrap: wrap;
+}
+
+.advanced-input {
+  flex: 1;
+  min-width: 140px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: var(--font);
+  padding: 10px 18px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.advanced-input::placeholder {
+  color: var(--muted);
+}
+
+.advanced-input:focus {
+  border-color: var(--accent);
+}
+
+.advanced-input--narrow {
+  flex: 0 1 160px;
+}
+
+.expiry-input-wrapper {
+  position: relative;
+  flex: 0 1 160px;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+}
+
+.expiry-input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding-right: 42px;
+}
+
+/* remove native spinner arrows so text isn't cut off */
+.expiry-input::-webkit-outer-spin-button,
+.expiry-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.expiry-input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.expiry-unit {
+  position: absolute;
+  right: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font);
+  pointer-events: none;
+}

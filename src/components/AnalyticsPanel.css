@@ -1,0 +1,57 @@
+.analytics-body {
+  padding: 16px;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.analytics-status {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font);
+  line-height: 1.7;
+}
+
+.analytics-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+}
+
+.analytics-chart {
+  margin-bottom: 18px;
+}
+
+.analytics-recent {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.analytics-recent-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  font-family: var(--font);
+  padding: 4px 0;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+.analytics-recent-code {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.analytics-recent-ref {
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}

@@ -89,7 +89,12 @@ Then open `http://localhost:5173`.
 ## Features
 
 - **Create links** — paste any URL and click Shorten to generate a 4-character alphanumeric short link
-- **View links** — table of all active links with name, original URL, and creation date
+- **Custom codes** — optionally choose your own code instead of a random one, via the "options" toggle on the form
+- **Link expiration** — optionally set a link to expire after a number of hours
+- **Password protection** — optionally require a password before a link redirects
+- **View links** — table of all active links with name, original URL, creation date, and badges for protected/expiring links
+- **QR codes** — generated entirely client-side (no third-party API call, no leaking destination URLs)
+- **Analytics** — a chart of top links by click count and a feed of recent clicks, pulled live from the backend
 - **Delete links** — inline confirmation on each row before deletion; no modals
 - **Toast notifications** — success and error feedback that auto-dismisses after 3 seconds
 
