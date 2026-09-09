@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { hasDeleteToken } from '../api.js';
 import './LinkRow.css';
 
 function formatDate(iso) {
@@ -43,6 +44,7 @@ export default function LinkRow({ link, onDelete, onShowQR }) {
   const [deleting, setDeleting] = useState(false);
 
   const shortUrl = `http://localhost:8000/${link.name}`;
+  const canDelete = hasDeleteToken(link.name);
 
   const handleConfirm = async () => {
     setDeleting(true);
@@ -100,7 +102,7 @@ export default function LinkRow({ link, onDelete, onShowQR }) {
               n
             </button>
           </span>
-        ) : (
+        ) : canDelete ? (
           <button
             className="delete-x"
             onClick={() => setConfirming(true)}
@@ -109,6 +111,10 @@ export default function LinkRow({ link, onDelete, onShowQR }) {
           >
             ×
           </button>
+        ) : (
+          <span className="delete-locked" title="only the browser that created this link can delete it">
+            <IconLock />
+          </span>
         )}
       </td>
     </tr>

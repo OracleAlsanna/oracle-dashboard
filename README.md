@@ -95,7 +95,7 @@ Then open `http://localhost:5173`.
 - **View links** — table of all active links with name, original URL, creation date, and badges for protected/expiring links
 - **QR codes** — generated entirely client-side (no third-party API call, no leaking destination URLs)
 - **Analytics** — a chart of top links by click count and a feed of recent clicks, pulled live from the backend
-- **Delete links** — inline confirmation on each row before deletion; no modals
+- **Delete links** — inline confirmation on each row before deletion; no modals. Only the browser that created a link can delete it (see Security)
 - **Toast notifications** — success and error feedback that auto-dismisses after 3 seconds
 
 ---
