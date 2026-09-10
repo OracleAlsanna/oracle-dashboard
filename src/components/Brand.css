@@ -13,21 +13,16 @@
 }
 
 .brand-star {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 6px 1px var(--accent);
-  animation: brand-blink 1.6s ease-in-out infinite alternate;
+  width: 14px;
+  height: 14px;
+  animation: brand-twinkle 1.8s ease-in-out infinite alternate;
 }
 
-@keyframes brand-blink {
+@keyframes brand-twinkle {
   from {
     opacity: 1;
-    transform: scale(1);
   }
   to {
     opacity: 0.25;
-    transform: scale(0.7);
   }
 }
